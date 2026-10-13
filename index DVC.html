@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!-- Página web demostrativa: Segurity VarlC - Ciberseguridad y análisis de datos -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Segurity VarlC: ciberseguridad, monitoreo digital 24/7 y análisis de datos para proteger la información de tu empresa.">
+  <title>Segurity VarlC | Ciberseguridad y Análisis de Datos</title>
+
+  <style>
+    /* ===== 1. VARIABLES DE COLOR (paleta oscura y sobria) ===== */
+    :root {
+      --fondo: #0b0f14;          /* fondo principal casi negro */
+      --fondo-2: #111821;        /* secciones alternas */
+      --tarjeta: #17212d;        /* fondo de tarjetas */
+      --borde: #2a3848;
+      --teal: #4aa3b5;           /* acento principal (apagado) */
+      --teal-oscuro: #276f7d;    /* botones */
+      --dorado: #b8923a;         /* acento secundario discreto */
+      --texto: #d5dde6;
+      --texto-suave: #9fb0c2;
+      --blanco: #f3f6f9;
+    }
+
+    /* ===== 2. ESTILOS GENERALES ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { font-family: "Segoe UI", Arial, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; }
+    a { color: var(--teal); }
+    :focus-visible { outline: 3px solid var(--dorado); outline-offset: 3px; }
+
+    .contenedor { width: 90%; max-width: 1100px; margin: 0 auto; }
+    section { padding: 70px 0; }
+    .fondo-alterno { background: var(--fondo-2); }
+    .titulo-seccion { text-align: center; color: var(--blanco); font-size: 2rem; margin-bottom: 6px; }
+    .subtitulo-seccion { text-align: center; margin-bottom: 40px; color: var(--texto-suave); }
+
+    /* Enlace para saltar al contenido (accesibilidad) */
+    .saltar { position: absolute; left: -999px; background: var(--dorado); color: var(--fondo); padding: 10px 16px; z-index: 100; }
+    .saltar:focus { left: 10px; top: 10px; }
+
+    /* ===== 3. ENCABEZADO Y MENÚ ===== */
+    .encabezado { background: #070a0e; position: sticky; top: 0; z-index: 50; border-bottom: 2px solid var(--borde); }
+    .encabezado__contenido { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; }
+    .logotipo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logotipo__imagen { width: 50px; height: 50px; }
+    .logotipo__texto { display: flex; flex-direction: column; line-height: 1.1; }
+    .logotipo__nombre { color: var(--blanco); font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; }
+    .logotipo__nombre span { color: var(--teal); }
+    .logotipo__eslogan { color: var(--dorado); font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+
+    .menu { display: flex; flex-wrap: wrap; list-style: none; gap: 4px; }
+    .menu a { color: var(--texto); text-decoration: none; padding: 8px 14px; border-radius: 6px; transition: background 0.3s, color 0.3s; }
+    .menu a:hover { background: var(--tarjeta); color: var(--teal); }
+
+    /* ===== 4. INICIO (HERO) con cuadrícula digital de fondo ===== */
+    .inicio {
+      padding: 90px 0; color: var(--blanco);
+      background:
+        linear-gradient(rgba(74,163,181,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,163,181,0.06) 1px, transparent 1px),
+        linear-gradient(135deg, #0b0f14 0%, #14202c 100%);
+      background-size: 40px 40px, 40px 40px, 100% 100%;
+    }
+    .inicio__contenido { display: grid; gap: 40px; align-items: center; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .inicio h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.2; }
+    .inicio h1 span { color: var(--teal); }
+    .inicio p { margin: 16px 0 26px; font-size: 1.1rem; color: var(--texto); }
+    .boton { display: inline-block; background: var(--teal-oscuro); color: var(--blanco); font-weight: 700; padding: 13px 28px; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; font-size: 1rem; transition: transform 0.2s, background 0.3s; }
+    .boton:hover { background: #328898; transform: translateY(-3px); }
+    .boton--borde { background: transparent; border: 2px solid var(--teal); color: var(--teal); margin-left: 8px; }
+
+    /* Panel decorativo estilo centro de operaciones */
+    .panel { background: rgba(23,33,45,0.9); border: 1px solid var(--borde); border-radius: 12px; padding: 22px; font-family: Consolas, "Courier New", monospace; }
+    .panel__titulo { color: var(--teal); margin-bottom: 8px; }
+    .panel__fila { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--borde); font-size: 0.95rem; }
+    .panel__fila:last-child { border-bottom: none; }
+    .panel__estado { color: #6fbf8e; font-weight: 700; text-align: right; }
+
+    /* ===== 5. INDICADORES ===== */
+    .indicadores { padding: 36px 0; background: #0f2a31; border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
+    .indicadores__lista { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); text-align: center; color: var(--texto); }
+    .indicadores__numero { font-size: 2.2rem; font-weight: 800; display: block; color: var(--teal); }
+
+    /* ===== 6. TARJETAS ===== */
+    .cuadricula { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .tarjeta { background: var(--tarjeta); border: 1px solid var(--borde); border-bottom: 3px solid var(--teal-oscuro); border-radius: 12px; padding: 26px 22px; transition: transform 0.3s, border-color 0.3s; }
+    .tarjeta:hover { transform: translateY(-5px); border-bottom-color: var(--dorado); }
+    .tarjeta__icono { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+    .tarjeta h3 { color: var(--blanco); margin-bottom: 6px; }
+    .tarjeta p { color: var(--texto-suave); }
+
+    /* ===== 7. ANÁLISIS DE DATOS (gráfico hecho solo con CSS) ===== */
+    .analisis__cuadricula { display: grid; gap: 30px; align-items: center; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .grafico { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 22px; }
+    .grafico h3 { color: var(--dorado); margin-bottom: 4px; }
+    .grafico__barras { display: flex; align-items: flex-end; justify-content: space-around; gap: 10px; height: 220px; margin: 18px 0 8px; border-bottom: 2px solid var(--borde); }
+    .grafico__columna { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+    .grafico__barra { width: 100%; max-width: 46px; background: linear-gradient(180deg, #3b8a9b, #1f5561); border-radius: 6px 6px 0 0; }
+    .grafico__valor { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: var(--blanco); }
+    .grafico__meses { display: flex; font-size: 0.85rem; color: var(--texto-suave); }
+    .grafico__meses span { flex: 1; text-align: center; }
+    .grafico__nota { font-size: 0.8rem; margin-top: 12px; color: var(--texto-suave); }
+    .analisis__lista { list-style: none; }
+    .analisis__lista li { margin-bottom: 14px; padding-left: 28px; position: relative; }
+    .analisis__lista li::before { content: "▸"; position: absolute; left: 0; color: var(--dorado); }
+
+    /* ===== 8. CONTACTO ===== */
+    .contacto__cuadricula { display: grid; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .contacto__datos { list-style: none; }
+    .contacto__datos li { margin-bottom: 14px; }
+    .formulario { background: var(--tarjeta); padding: 25px; border-radius: 12px; border: 1px solid var(--borde); }
+    .formulario label { display: block; margin: 12px 0 5px; font-weight: 600; color: var(--blanco); }
+    .formulario input, .formulario textarea { width: 100%; padding: 11px; border-radius: 6px; border: 2px solid var(--borde); background: #0e141b; color: var(--blanco); font-size: 1rem; font-family: inherit; }
+    .formulario input:focus, .formulario textarea:focus { border-color: var(--teal); }
+    .aviso { background: #2a2310; border-left: 4px solid var(--dorado); padding: 10px; font-size: 0.9rem; color: #ecdcae; }
+    #mensaje-demo { margin-top: 12px; color: #6fbf8e; font-weight: 700; }
+
+    /* ===== 9. PIE DE PÁGINA ===== */
+    .pie { background: #070a0e; border-top: 2px solid var(--borde); text-align: center; padding: 28px 0; font-size: 0.9rem; color: var(--texto-suave); }
+    .pie a { text-decoration: none; margin: 0 8px; }
+
+    /* ===== 10. DISEÑO ADAPTABLE ===== */
+    @media (max-width: 768px) {
+      .encabezado__contenido { justify-content: center; }
+      .menu { justify-content: center; }
+      section { padding: 50px 0; }
+      .inicio { padding: 60px 0; }
+      .boton--borde { margin: 10px 0 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- ===== ENCABEZADO: logotipo y menú ===== -->
+  <header class="encabezado">
+    <div class="contenedor encabezado__contenido">
+      <a href="#inicio" class="logotipo" aria-label="Segurity VarlC, ir al inicio">
+        <!-- Logotipo SVG: escudo con candado digital -->
+        <svg class="logotipo__imagen" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <path d="M32 4 L56 13 V32 C56 46 46 56 32 60 C18 56 8 46 8 32 V13 Z" fill="#17212d" stroke="#4aa3b5" stroke-width="3"/>
+          <path d="M25 30 V25 a7 7 0 0 1 14 0 V30" fill="none" stroke="#b8923a" stroke-width="3" stroke-linecap="round"/>
+          <rect x="22" y="30" width="20" height="15" rx="3" fill="#4aa3b5"/>
+          <circle cx="32" cy="37" r="2.5" fill="#0b0f14"/>
+        </svg>
+        <span class="logotipo__texto">
+          <span class="logotipo__nombre">Segurity <span>VarlC</span></span>
+          <span class="logotipo__eslogan">Seguridad digital</span>
+        </span>
+      </a>
+      <nav aria-label="Menú principal">
+        <ul class="menu">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#analisis">Análisis de datos</a></li>
+          <li><a href="#ventajas">Ventajas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===== INICIO ===== -->
+    <section id="inicio" class="inicio">
+      <div class="contenedor inicio__contenido">
+        <div>
+          <h1>Protegemos tu información con <span>ciberseguridad e inteligencia de datos</span></h1>
+          <p>Monitoreo digital 24/7, defensa de redes y análisis de datos para detectar amenazas antes de que afecten a tu empresa.</p>
+          <a href="#contacto" class="boton">Solicitar diagnóstico</a>
+          <a href="#servicios" class="boton boton--borde">Ver servicios</a>
+        </div>
+        <!-- Panel decorativo con estados de ejemplo -->
+        <div class="panel" role="group" aria-label="Estado de ejemplo del centro de operaciones de seguridad">
+          <p class="panel__titulo">&gt; Centro de operaciones (ejemplo)</p>
+          <div class="panel__fila"><span>Equipos protegidos</span><span class="panel__estado">1.240 activos</span></div>
+          <div class="panel__fila"><span>Amenazas bloqueadas hoy</span><span class="panel__estado">3.582</span></div>
+          <div class="panel__fila"><span>Estado de la red</span><span class="panel__estado">Seguro</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INDICADORES (datos ficticios) ===== -->
+    <div class="indicadores">
+      <div class="contenedor indicadores__lista">
+        <p><span class="indicadores__numero">24/7</span>Monitoreo continuo</p>
+        <p><span class="indicadores__numero">+150</span>Empresas protegidas</p>
+        <p><span class="indicadores__numero">-71%</span>Incidentes en 6 meses*</p>
+        <p><span class="indicadores__numero">6 min</span>Respuesta promedio*</p>
+      </div>
+    </div>
+
+    <!-- ===== NOSOTROS ===== -->
+    <section id="nosotros">
+      <div class="contenedor">
+        <h2 class="titulo-seccion">Quiénes somos</h2>
+        <p class="subtitulo-seccion">Seguridad digital basada en información</p>
+        <div class="cuadricula">
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🛡️</span><h3>Misión</h3><p>Proteger los datos y sistemas de nuestros clientes con soluciones de ciberseguridad y análisis de datos confiables y oportunas.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🔭</span><h3>Visión</h3><p>Ser en 2030 una empresa de referencia en seguridad digital inteligente, reconocida por su innovación y confianza.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">⚖️</span><h3>Valores</h3><p>Integridad, confidencialidad, responsabilidad, trabajo en equipo y mejora continua.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICIOS ===== -->
+    <section id="servicios" class="fondo-alterno">
+      <div class="contenedor">
+        <h2 class="titulo-seccion">Nuestros servicios</h2>
+        <p class="subtitulo-seccion">Soluciones digitales para proteger tu negocio</p>
+        <div class="cuadricula">
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🖥️</span><h3>Monitoreo de seguridad 24/7</h3><p>Centro de operaciones que vigila redes y equipos todo el día.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🧱</span><h3>Protección de redes</h3><p>Firewalls, control de accesos y segmentación de redes.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🔍</span><h3>Pruebas de vulnerabilidad</h3><p>Evaluamos tus sistemas para encontrar fallas antes que un atacante.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">☁️</span><h3>Seguridad en la nube</h3><p>Protección de servicios y archivos alojados en línea.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">💾</span><h3>Respaldo y recuperación</h3><p>Copias de seguridad y planes para recuperar la información.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🎓</span><h3>Capacitación al personal</h3><p>Talleres contra el phishing y buenas prácticas digitales.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ANÁLISIS DE DATOS ===== -->
+    <section id="analisis">
+      <div class="contenedor">
+        <h2 class="titulo-seccion">Análisis de datos de seguridad</h2>
+        <p class="subtitulo-seccion">Convertimos registros y alertas en decisiones</p>
+        <div class="analisis__cuadricula">
+
+          <!-- Gráfico de barras hecho con CSS (datos ficticios) -->
+          <div class="grafico" role="img" aria-label="Gráfico de ejemplo: incidentes de seguridad por mes bajan de 48 en enero a 14 en junio">
+            <h3>Incidentes de seguridad por mes (ejemplo)</h3>
+            <div class="grafico__barras">
+              <div class="grafico__columna"><span class="grafico__valor">48</span><div class="grafico__barra" style="height: 80%;"></div></div>
+              <div class="grafico__columna"><span class="grafico__valor">41</span><div class="grafico__barra" style="height: 68%;"></div></div>
+              <div class="grafico__columna"><span class="grafico__valor">33</span><div class="grafico__barra" style="height: 55%;"></div></div>
+              <div class="grafico__columna"><span class="grafico__valor">25</span><div class="grafico__barra" style="height: 42%;"></div></div>
+              <div class="grafico__columna"><span class="grafico__valor">19</span><div class="grafico__barra" style="height: 32%;"></div></div>
+              <div class="grafico__columna"><span class="grafico__valor">14</span><div class="grafico__barra" style="height: 23%;"></div></div>
+            </div>
+            <div class="grafico__meses"><span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span></div>
+            <p class="grafico__nota">*Datos ficticios con fines demostrativos.</p>
+          </div>
+
+          <ul class="analisis__lista">
+            <li><strong>Detección de anomalías:</strong> identificamos accesos y comportamientos inusuales en tus sistemas.</li>
+            <li><strong>Tableros en tiempo real:</strong> visualiza alertas, amenazas bloqueadas y tiempos de respuesta.</li>
+            <li><strong>Análisis de registros (logs):</strong> revisamos el historial para encontrar patrones de ataque.</li>
+            <li><strong>Reportes mensuales:</strong> informes claros con recomendaciones para reducir riesgos.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VENTAJAS COMPETITIVAS ===== -->
+    <section id="ventajas" class="fondo-alterno">
+      <div class="contenedor">
+        <h2 class="titulo-seccion">¿Por qué elegirnos?</h2>
+        <p class="subtitulo-seccion">Lo que nos diferencia</p>
+        <div class="cuadricula">
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🧠</span><h3>Prevención inteligente</h3><p>Anticipamos amenazas con análisis de datos, no solo reaccionamos.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">⏱️</span><h3>Respuesta rápida</h3><p>Protocolos claros y tiempos de atención medidos.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🎖️</span><h3>Equipo especializado</h3><p>Analistas capacitados y en formación permanente.</p></article>
+          <article class="tarjeta"><span class="tarjeta__icono" aria-hidden="true">🔒</span><h3>Confidencialidad total</h3><p>Manejo seguro y reservado de tu información.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section id="contacto">
+      <div class="contenedor">
+        <h2 class="titulo-seccion">Contáctanos</h2>
+        <p class="subtitulo-seccion">Solicita un diagnóstico de seguridad sin compromiso</p>
+        <div class="contacto__cuadricula">
+
+          <!-- Datos de contacto ficticios -->
+          <ul class="contacto__datos">
+            <li><strong>📍 Dirección:</strong> Avenida Ejemplo #00-00, Oficina 000</li>
+            <li><strong>📞 Teléfono:</strong> 300 000 0000 (ejemplo)</li>
+            <li><strong>✉️ Correo:</strong> contacto@segurityvarlc.example</li>
+            <li><strong>🕒 Atención:</strong> Centro de monitoreo 24 horas. Oficina: lunes a viernes, 8:00 a. m. a 5:00 p. m.</li>
+          </ul>
+
+          <!-- Formulario demostrativo -->
+          <form class="formulario" id="formulario-demo">
+            <p class="aviso"><strong>Formulario demostrativo:</strong> no envía información; requiere una integración adicional para funcionar.</p>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" required>
+            <label for="texto">Mensaje</label>
+            <textarea id="texto" name="texto" rows="4" required></textarea>
+            <br><br>
+            <button type="submit" class="boton">Enviar (demo)</button>
+            <p id="mensaje-demo" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie">
+    <div class="contenedor">
+      <p><a href="#inicio">Inicio</a> | <a href="#servicios">Servicios</a> | <a href="#analisis">Análisis de datos</a> | <a href="#contacto">Contacto</a></p>
+      <p>&copy; 2026 Segurity VarlC. Todos los derechos reservados. Sitio demostrativo con datos ficticios.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* Evita que el formulario demostrativo recargue la página y muestra un aviso */
+    document.getElementById("formulario-demo").addEventListener("submit", function (evento) {
+      evento.preventDefault();
+      document.getElementById("mensaje-demo").textContent = "Demostración: el mensaje no fue enviado.";
+    });
+  </script>
+</body>
+</html>
